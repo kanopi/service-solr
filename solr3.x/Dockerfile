@@ -12,4 +12,6 @@ ENV SOLR_COLLECTION_PATH /opt/solr/$SOLR/example/solr
 # Download and install solr
 RUN /opt/install.sh
 
+COPY /solr/conf /var/lib/solr/conf
+
 CMD /opt/startup.sh;
