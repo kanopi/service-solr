@@ -1,15 +1,26 @@
-FROM blinkreaction/drupal-solr:base
+FROM java:openjdk-8-jre
 
 MAINTAINER Leonid Makarov <leonid.makarov@blinkreaction.com>
 
-# SOLR 4.x version and mirror
+# Solr version
 ENV SOLR_VERSION 4.10.4
-ENV SOLR_MIRROR http://www.mirrorservice.org/sites/ftp.apache.org/lucene/solr
+ENV SOLR_MIRROR http://archive.apache.org/dist/lucene/solr
 ENV SOLR solr-$SOLR_VERSION
-
 ENV SOLR_COLLECTION_PATH /opt/solr/$SOLR/example/solr/collection1
+
+# Persist volume for solr home
+VOLUME ["/var/lib/solr/data"]
+
+# Copy scripts and configs
+COPY ./install.sh /opt/install.sh
+#COPY ./startup.sh /opt/startup.sh
+COPY ./solr/conf /var/lib/solr/conf
 
 # Download and install solr
 RUN /opt/install.sh
 
-CMD /opt/startup.sh;
+EXPOSE 8983
+
+WORKDIR /opt/solr/$SOLR/example
+
+CMD ["java", "-jar", "start.jar"]
