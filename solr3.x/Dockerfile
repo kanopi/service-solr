@@ -13,7 +13,6 @@ VOLUME ["/var/lib/solr/data"]
 
 # Copy scripts and configs
 COPY ./install.sh /opt/install.sh
-#COPY ./startup.sh /opt/startup.sh
 COPY ./solr/conf /var/lib/solr/conf
 
 # Download and install solr

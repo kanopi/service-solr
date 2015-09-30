@@ -7,11 +7,6 @@ wget --progress=bar:force --output-document=/opt/solr/$SOLR.tgz $SOLR_MIRROR/$SO
 tar -C /opt/solr/ --extract --file /opt/solr/$SOLR.tgz && \
 rm /opt/solr/$SOLR.tgz
 
-# Link configuration directory
-rm -fr $SOLR_COLLECTION_PATH/conf
-mkdir /var/lib/solr/conf
+# Symlink configuration and data directories
 ln -s /var/lib/solr/conf $SOLR_COLLECTION_PATH/conf
-
-# Link data directory
-rm -fr $SOLR_COLLECTION_PATH/data
 ln -s /var/lib/solr/data $SOLR_COLLECTION_PATH/data
