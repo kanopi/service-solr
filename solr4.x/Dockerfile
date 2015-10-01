@@ -1,4 +1,4 @@
-FROM java:openjdk-8-jre
+FROM java:openjdk-7-jre
 
 MAINTAINER Leonid Makarov <leonid.makarov@blinkreaction.com>
 
