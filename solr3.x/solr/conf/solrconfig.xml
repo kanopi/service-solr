@@ -82,7 +82,7 @@
        files in that directory which completely match the regex
        (anchored on both ends) will be included.
     -->
-  <lib dir="../../dist/" regex="apache-solr-cell-\d.*\.jar" />
+  <!--<lib dir="../../dist/" regex="apache-solr-cell-\d.*\.jar" />-->
   <!--<lib dir="../../dist/" regex="apache-solr-clustering-\d.*\.jar" />-->
   <!--<lib dir="../../dist/" regex="apache-solr-dataimporthandler-\d.*\.jar" />-->
   <!--<lib dir="../../dist/" regex="apache-solr-langid-\d.*\.jar" />-->
@@ -960,16 +960,6 @@
       <str name="captureAttr">true</str>
       <str name="fmap.a">links</str>
       <str name="fmap.div">ignored_</str>
-    </lst>
-  </requestHandler>
-
-  <!-- An extract-only path for accessing the tika utility -->
-  <requestHandler name="/extract/tika" class="org.apache.solr.handler.extraction.ExtractingRequestHandler" startup="lazy">
-    <lst name="defaults">
-    </lst>
-    <!-- This path only extracts - never updates -->
-    <lst name="invariants">
-      <bool name="extractOnly">true</bool>
     </lst>
   </requestHandler>
 
