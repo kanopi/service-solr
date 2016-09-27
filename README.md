@@ -1,4 +1,4 @@
-# Solr Docker images for Drupal
+# Solr Docker images for Docksal
 
 These images are part of the Drude Development Environment.
-Learn more at https://github.com/blinkreaction/drude
+Learn more at https://github.com/docksal/docksal
