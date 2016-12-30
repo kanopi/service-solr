@@ -1,6 +1,6 @@
 FROM java:openjdk-7-jre
 
-MAINTAINER Leonid Makarov <leonid.makarov@blinkreaction.com>
+MAINTAINER Team Docksal, https://docksal.io
 
 # Solr version
 ENV SOLR_VERSION 3.6.2
