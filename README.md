@@ -5,15 +5,15 @@ These images are based on the official Apache Solr images from Docker Hub (alpin
 This image(s) is part of the [Docksal](http://docksal.io) image library.
 
 
-## Versions and tags
+## Versions
 
-Image: `docksal/solr:<solr-version>-<image-stability-tag>`
+- `docksal/solr:7.5`, `docksal/solr:latest`
+- `docksal/solr:6.6`,
+- `docksal/solr:5.5`,
 
-Tags:
+For a complete list of available images tags check the image page on [Docker Hub](https://cloud.docker.com/u/docksal/repository/docker/docksal/solr).
 
-- `7.5`, `7`, `latest`
-- `6.6`, `6`
-- `5.5`, `5`
+Tag scheme: `docksal/solr:<solr-version>[-<image-stability-tag>]`
 
 
 ## Environment variables
