@@ -7,9 +7,9 @@ This image(s) is part of the [Docksal](http://docksal.io) image library.
 
 ## Versions
 
-- `docksal/solr:7.5`, `docksal/solr:latest`
-- `docksal/solr:6.6`,
 - `docksal/solr:5.5`,
+- `docksal/solr:6.6`,
+- `docksal/solr:7.5`, `docksal/solr:latest`
 
 For a complete list of available images tags check the image page on [Docker Hub](https://cloud.docker.com/u/docksal/repository/docker/docksal/solr).
 
