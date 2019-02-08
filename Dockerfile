@@ -13,11 +13,12 @@ USER root
 COPY configsets /opt/docker-solr/configsets
 COPY scripts/healthcheck.sh /opt/docker-solr/scripts/healthcheck.sh
 COPY scripts/docksal-preinit /opt/docker-solr/scripts/docksal-preinit
-RUN \
-  ln -s /opt/solr/dist /opt/dist; \
-  ln -s /opt/solr/contrib /opt/contrib; \
-  sed -i '/exec "$@"/i . docksal-preinit' /opt/docker-solr/scripts/docker-entrypoint.sh; \
-  chown -R solr:solr /opt/docker-solr
+
+RUN set -xe; \
+	ln -s /opt/solr/dist /opt/dist; \
+	ln -s /opt/solr/contrib /opt/contrib; \
+	sed -i '/exec "$@"/i . docksal-preinit' /opt/docker-solr/scripts/docker-entrypoint.sh; \
+	chown -R solr:solr /opt/docker-solr
 
 USER solr
 
@@ -26,4 +27,3 @@ WORKDIR /opt/solr/server/solr
 
 # Health check script
 HEALTHCHECK --interval=5s --timeout=1s --retries=12 CMD ["healthcheck.sh"]
-
