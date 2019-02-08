@@ -1,28 +1,37 @@
-# Apache Solr Docker Container Image
+# Apache Solr Docker images for Docksal
 
-## Docker Images
+These images are based on the official Apache Solr images from Docker Hub (alpine base).
 
-* All images are based on Alpine Linux
-* Base image: [solr](https://hub.docker.com/_/solr/)
+This image(s) is part of the [Docksal](http://docksal.io) image library.
 
-Supported tags and respective `Dockerfile` links:
 
-* `7.5.0`, `7.5`, `7`, `latest`
-* `6.6.5`, `6.6`, `6`
-* `5.5.5`, `5.5`, `5`
+## Versions and tags
 
-## Environment Variables
+Image: `docksal/solr:<solr-version>-<image-stability-tag>`
+
+Tags:
+
+- `7.5`, `7`, `latest`
+- `6.6`, `6`
+- `5.5`, `5`
+
+
+## Environment variables
 
 | Variable                  | Default Value | Description                     |
 | ------------------------- | ------------- | ------------------------------- |
 | `SOLR_HEAP`               | `1024m `      |                                 |
 | `SOLR_DEFAULT_CONFIG_SET` |               | See [config sets](#config-sets) |
 
+
 ## Config sets
 
 ### Drupal Search API Solr
 
-Apart from the default config set, this image contains predefined config sets for Drupal from [Search API Solr](https://www.drupal.org/project/search_api_solr) module. To set one of the following config sets as a default for new cores, add environment variable `$SOLR_DEFAULT_CONFIG_SET` with the value `search_api_solr_[VERSION]` with `[VERSION]` replaced to one of the listed below, e.g. `search_api_solr_8.x-2.1`.
+Apart from the default config set, this image contains predefined config sets for Drupal from 
+[Search API Solr](https://www.drupal.org/project/search_api_solr) module. To set one of the following config sets 
+as a default for new cores, add environment variable `$SOLR_DEFAULT_CONFIG_SET` with the value `search_api_solr_[VERSION]` 
+with `[VERSION]` replaced to one of the listed below, e.g. `search_api_solr_8.x-2.1`.
 
 Matrix of Search API Solr x Solr version support.
 
@@ -48,7 +57,10 @@ Matrix of Search API Solr x Solr version support.
 
 ### Drupal Apache Solr
 
-Apart from the default config set, this image contains predefined config sets for Drupal from [Apache Solr](https://www.drupal.org/project/apachesolr) module. To set one of the following config sets as a default for new cores, add environment variable `$SOLR_DEFAULT_CONFIG_SET` with the value `apachesolr_[VERSION]` with `[VERSION]` replaced to one of the listed below, e.g. `apachesolr_7.x-1.11`.
+Apart from the default config set, this image contains predefined config sets for Drupal from 
+[Apache Solr](https://www.drupal.org/project/apachesolr) module. To set one of the following config sets as a default 
+for new cores, add environment variable `$SOLR_DEFAULT_CONFIG_SET` with the value `apachesolr_[VERSION]` 
+with `[VERSION]` replaced to one of the listed below, e.g. `apachesolr_7.x-1.11`.
 
 Matrix of Apache Solr x Solr version support.
 
@@ -57,9 +69,9 @@ Matrix of Apache Solr x Solr version support.
 | 7.x-1.11 |          |          | ✓        |
 | 7.x-1.10 |          |          | ✓        |
 
+
 ## Configuration overrides
 
 Configuration overrides can be added to a Docksal project codebase.
 
-Put configuration files into `.docksal/etc/solr/conf` to override the predefined configuration
-
+Put configuration files into `.docksal/etc/solr/conf` to override the predefined configuration.
