@@ -1,6 +1,7 @@
 -include env_make
 
 VERSION ?= 7.5.0
+FROM ?= solr:7.5.0-alpine
 TAG ?= $(VERSION)
 
 REPO ?= docksal/solr
@@ -17,7 +18,7 @@ endif
 
 build:
 	VERSION=$(VERSION) scripts/download_configsets.sh
-	docker build -t $(REPO):$(TAG) --build-arg VERSION=$(VERSION) --build-arg SOLR_DEFAULT_CONFIG_SET=$(SOLR_DEFAULT_CONFIG_SET) .
+	docker build -t $(REPO):$(TAG) --build-arg FROM=$(FROM) --build-arg VERSION=$(VERSION) --build-arg SOLR_DEFAULT_CONFIG_SET=$(SOLR_DEFAULT_CONFIG_SET) .
 
 test:
 	IMAGE=$(REPO):$(TAG) NAME=$(NAME) VERSION=$(VERSION) ./tests/test.bats
