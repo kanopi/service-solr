@@ -9,7 +9,8 @@ This image(s) is part of the [Docksal](http://docksal.io) image library.
 
 - `docksal/solr:5.5`,
 - `docksal/solr:6.6`,
-- `docksal/solr:7.5`, `docksal/solr:latest`
+- `docksal/solr:7.5`,
+- `docksal/solr:7.7`, `docksal/solr:latest`
 
 For a complete list of available images tags check the image page on [Docker Hub](https://cloud.docker.com/u/docksal/repository/docker/docksal/solr).
 
@@ -37,6 +38,8 @@ Matrix of Search API Solr x Solr version support.
 
 | Version  | Solr 7.x | Solr 6.x | Solr 5.x |
 | -------- | -------- | -------- | -------- |
+| 8.x-2.7  | ✓        | ✓        |          |
+| 8.x-2.6  | ✓        | ✓        |          |
 | 8.x-2.5  | ✓        | ✓        |          |
 | 8.x-2.4  | ✓        | ✓        |          |
 | 8.x-2.3  | ✓        | ✓        |          |
@@ -75,3 +78,7 @@ Matrix of Apache Solr x Solr version support.
 Configuration overrides can be added to a Docksal project codebase.
 
 Put configuration files into `.docksal/etc/solr/conf` to override the predefined configuration.
+
+## Credits
+
+This image was inspired by https://github.com/wodby/solr
