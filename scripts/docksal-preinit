@@ -17,10 +17,10 @@ else
 fi
 
 # Remove old symlinks
-find -L ${SOLR_HOME} -type l -delete
+find ${SOLR_HOME}/configsets/ -type l -delete
 
 # Symlinks config set to volume.
-ln -sf "${CONFIG_SET_PATH}/" "${SOLR_HOME}/configsets/${SOLR_DEFAULT_CONFIG_SET}";
+ln -sf "${CONFIG_SET_PATH}" "${SOLR_HOME}/configsets/${SOLR_DEFAULT_CONFIG_SET}";
 
 # set default core
 touch "${SOLR_HOME}/configsets/${SOLR_DEFAULT_CONFIG_SET}/core.properties"
