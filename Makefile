@@ -17,6 +17,7 @@ endif
 .PHONY: build test push shell run start stop logs clean release
 
 build:
+	git checkout -- configsets
 	VERSION=$(VERSION) scripts/prepare_configsets.sh
 	docker build -t $(REPO):$(TAG) --build-arg FROM=$(FROM) --build-arg VERSION=$(VERSION) --build-arg SOLR_DEFAULT_CONFIG_SET=$(SOLR_DEFAULT_CONFIG_SET) .
 
