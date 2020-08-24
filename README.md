@@ -11,7 +11,8 @@ This image(s) is part of the [Docksal](http://docksal.io) image library.
 - `docksal/solr:6.6`,
 - `docksal/solr:7.5`,
 - `docksal/solr:7.7`,
-- `docksal/solr:8.1`, `docksal/solr:latest`
+- `docksal/solr:8.1`,
+- `docksal/solr:8.6`, `docksal/solr:latest`
 
 For a complete list of available images tags check the image page on [Docker Hub](https://cloud.docker.com/u/docksal/repository/docker/docksal/solr).
 
