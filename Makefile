@@ -4,9 +4,10 @@ VERSION ?= 8.1.1
 FROM ?= solr:8.1.1-slim
 TAG ?= $(VERSION)
 
-REPO ?= docksal/solr
+REPO ?= devkteam/solr
 NAME = docksal-solr-$(VERSION)
 SOLR_DEFAULT_CONFIG_SET ?= search_api_solr_8.x-3.0
+INCLUDE_EXTRAS ?= 0
 
 ifneq ($(STABILITY_TAG),)
 	ifneq ($(TAG),latest)
@@ -19,7 +20,17 @@ endif
 build:
 	git checkout -- configsets
 	VERSION=$(VERSION) scripts/prepare_configsets.sh
-	docker build -t $(REPO):$(TAG) --build-arg FROM=$(FROM) --build-arg VERSION=$(VERSION) --build-arg SOLR_DEFAULT_CONFIG_SET=$(SOLR_DEFAULT_CONFIG_SET) .
+	docker \
+		buildx \
+		build \
+		--push \
+		--platform linux/amd64,linux/arm64 \
+		-t $(REPO):$(TAG) \
+		--build-arg INCLUDE_EXTRAS=$(INCLUDE_EXTRAS) \
+		--build-arg FROM=$(FROM) \
+		--build-arg VERSION=$(VERSION) \
+		--build-arg SOLR_DEFAULT_CONFIG_SET=$(SOLR_DEFAULT_CONFIG_SET) \
+		.
 
 test:
 	IMAGE=$(REPO):$(TAG) NAME=$(NAME) VERSION=$(VERSION) ./tests/test.bats

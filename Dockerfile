@@ -4,8 +4,11 @@ FROM ${FROM}
 ARG VERSION
 ARG SOLR_DEFAULT_CONFIG_SET
 
+ARG INCLUDE_EXTRAS
+
 ENV VERSION=${VERSION}
 ENV SOLR_DEFAULT_CONFIG_SET=${SOLR_DEFAULT_CONFIG_SET}
+ENV INCLUDE_EXTRAS=${INCLUDE_EXTRAS}
 ENV SOLR_HEAP="1024m"
 ENV SOLR_HOME="/opt/solr/server/solr"
 
@@ -25,6 +28,13 @@ RUN set -xe; \
 	ln -s /opt/solr/contrib /opt/contrib; \
 	sed -i '/exec "$@"/i . docksal-preinit' /opt/docker-solr/scripts/docker-entrypoint.sh; \
 	chown -R solr:solr /opt/docker-solr /opt/solr/server/solr
+
+RUN set -xe; \
+	if [[ "${INCLUDE_EXTRAS}" == "1" ]]; then \
+		cd /opt/solr; \
+		cp contrib/analysis-extras/lib/*.jar server/solr-webapp/webapp/WEB-INF/lib/; \
+		cp contrib/analysis-extras/lucene-libs/*.jar server/solr-webapp/webapp/WEB-INF/lib/; \
+	fi
 
 USER solr
 
