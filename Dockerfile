@@ -26,7 +26,10 @@ RUN set -xe; \
 RUN set -xe; \
 	ln -s /opt/solr/dist /opt/dist; \
 	ln -s /opt/solr/contrib /opt/contrib; \
-	sed -i '/exec "$@"/i . docksal-preinit' /opt/docker-solr/scripts/docker-entrypoint.sh; \
+	# Needed for 9.x and above
+	[ -f "/opt/solr/docker/scripts/docker-entrypoint.sh" ] && sed -i '/exec "$@"/i . docksal-preinit' /opt/solr/docker/scripts/docker-entrypoint.sh; \
+	# Needed for 8.x and below
+	[ -f "/opt/docker-solr/scripts/docker-entrypoint.sh" ] && sed -i '/exec "$@"/i . docksal-preinit' /opt/docker-solr/scripts/docker-entrypoint.sh; \
 	chown -R solr:solr /opt/docker-solr /opt/solr/server/solr
 
 RUN set -xe; \
