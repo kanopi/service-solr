@@ -27,12 +27,14 @@ RUN set -xe; \
 	ln -s /opt/solr/dist /opt/dist; \
 	ln -s /opt/solr/contrib /opt/contrib; \
 	# Needed for 9.x and above
-	[ -f "/opt/solr/docker/scripts/docker-entrypoint.sh" ] && sed -i '/exec "$@"/i . docksal-preinit' /opt/solr/docker/scripts/docker-entrypoint.sh; \
-	[ -d "/opt/solr/docker/scripts" ] && mv /scripts/healthcheck.sh /scripts/docksal-preinit /opt/solr/docker/scripts/; \
+	[ -d "/opt/solr/docker/scripts" ] && sed -i '/exec "$@"/i . docksal-preinit' /opt/solr/docker/scripts/docker-entrypoint.sh \
+		&& mv /scripts/healthcheck.sh /scripts/docksal-preinit /opt/solr/docker/scripts/ \
+		&& chown -R solr:solr /opt/solr/docker /opt/solr/server/solr; \
 	# Needed for 8.x and below
-	[ -f "/opt/docker-solr/scripts/docker-entrypoint.sh" ] && sed -i '/exec "$@"/i . docksal-preinit' /opt/docker-solr/scripts/docker-entrypoint.sh; \
-	[ -d "/opt/docker-solr/scripts/docker" ] && mv /scripts/healthcheck.sh /scripts/docksal-preinit /opt/docker-solr/scripts/; \
-	chown -R solr:solr /opt/docker-solr /opt/solr/server/solr
+	[ -d "/opt/docker-solr/scripts/docker" ] && sed -i '/exec "$@"/i . docksal-preinit' /opt/docker-solr/scripts/docker-entrypoint.sh \
+		&& mv /scripts/healthcheck.sh /scripts/docksal-preinit /opt/docker-solr/scripts/ \
+		&& chown -R solr:solr /opt/docker-solr /opt/solr/server/solr;
+
 
 RUN set -xe; \
 	if [[ "${INCLUDE_EXTRAS}" == "1" ]]; then \
