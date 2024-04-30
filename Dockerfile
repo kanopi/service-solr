@@ -26,14 +26,18 @@ RUN set -xe; \
 RUN set -xe; \
 	ln -s /opt/solr/dist /opt/dist; \
 	ln -s /opt/solr/contrib /opt/contrib; \
-	# Needed for 9.x and above
-	[ -d "/opt/solr/docker/scripts" ] && sed -i '/exec "$@"/i . docksal-preinit' /opt/solr/docker/scripts/docker-entrypoint.sh \
-		&& mv /scripts/healthcheck.sh /scripts/docksal-preinit /opt/solr/docker/scripts/ \
-		&& chown -R solr:solr /opt/solr/docker /opt/solr/server/solr; \
-	# Needed for 8.x and below
-	[ -d "/opt/docker-solr/scripts/docker" ] && sed -i '/exec "$@"/i . docksal-preinit' /opt/docker-solr/scripts/docker-entrypoint.sh \
-		&& mv /scripts/healthcheck.sh /scripts/docksal-preinit /opt/docker-solr/scripts/ \
-		&& chown -R solr:solr /opt/docker-solr /opt/solr/server/solr;
+	if [[ "$VERSION" =~ "9" ]]; then \
+		# Needed for 9.x and above
+		sed -i '/exec "$@"/i . docksal-preinit' /opt/solr/docker/scripts/docker-entrypoint.sh; \
+		mv /scripts/healthcheck.sh /scripts/docksal-preinit /opt/solr/docker/scripts/; \
+		chown -R solr:solr /opt/solr/docker /opt/solr/server/solr; \
+	fi; \
+	if [[ "$VERSION" =~ "8" ]]; then \
+		# Needed for 8.x and below
+		sed -i '/exec "$@"/i . docksal-preinit' /opt/docker-solr/scripts/docker-entrypoint.sh; \
+		mv /scripts/healthcheck.sh /scripts/docksal-preinit /opt/docker-solr/scripts/; \
+		chown -R solr:solr /opt/docker-solr /opt/solr/server/solr; \
+	fi
 
 
 RUN set -xe; \
