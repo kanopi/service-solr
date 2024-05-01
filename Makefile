@@ -1,12 +1,12 @@
 -include env_make
 
-VERSION ?= 8.1.1
-FROM ?= solr:8.1.1-slim
+VERSION ?= 8.11.3
+FROM ?= solr:8.11.3-slim
 TAG ?= $(VERSION)
 
 REPO ?= devkteam/solr
 NAME = docksal-solr-$(VERSION)
-SOLR_DEFAULT_CONFIG_SET ?= search_api_solr_8.x-3.0
+SOLR_DEFAULT_CONFIG_SET ?= search_api_solr_4.3.3
 INCLUDE_EXTRAS ?= 0
 
 ifneq ($(STABILITY_TAG),)
