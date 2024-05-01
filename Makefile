@@ -6,7 +6,7 @@ TAG ?= $(VERSION)
 
 IMAGE ?= devkteam/solr
 BUILD_IMAGE_TAG ?= $(IMAGE):$(VERSION)-build
-NAME = docksal-solr-$(VERSION)
+NAME = devkteam-solr-$(VERSION)
 SOLR_DEFAULT_CONFIG_SET ?= search_api_solr_4.3.3
 INCLUDE_EXTRAS ?= 0
 
@@ -48,7 +48,7 @@ shell: clean
 	docker run --rm --name $(NAME) -it $(PORTS) $(VOLUMES) $(ENV) $(BUILD_IMAGE_TAG) /bin/bash
 
 run: clean
-	docker run --rm --name $(NAME) -it $(PORTS) $(VOLUMES) $(ENV) $(BUILD_IMAGE_TAG)
+	docker run --rm --name $(NAME) -it -d $(PORTS) $(VOLUMES) $(ENV) $(BUILD_IMAGE_TAG)
 
 start: clean
 	docker run -d --name $(NAME) $(PORTS) $(VOLUMES) $(ENV) $(BUILD_IMAGE_TAG)
