@@ -4,7 +4,8 @@ VERSION ?= 8.11.3
 FROM ?= solr:8.11.3-slim
 TAG ?= $(VERSION)
 
-REPO ?= devkteam/solr
+IMAGE ?= devkteam/solr
+BUILD_IMAGE_TAG ?= $(IMAGE):$(VERSION)-build
 NAME = docksal-solr-$(VERSION)
 SOLR_DEFAULT_CONFIG_SET ?= search_api_solr_4.3.3
 INCLUDE_EXTRAS ?= 0
@@ -20,12 +21,17 @@ endif
 build:
 	git checkout -- configsets
 	VERSION=$(VERSION) scripts/prepare_configsets.sh
+	docker build -t $(BUILD_IMAGE_TAG) --build-arg FROM=$(FROM) --build-arg VERSION=$(VERSION) --build-arg SOLR_DEFAULT_CONFIG_SET=$(SOLR_DEFAULT_CONFIG_SET) .
+
+build-multi:
+	git checkout -- configsets
+	VERSION=$(VERSION) scripts/prepare_configsets.sh
 	docker \
 		buildx \
 		build \
 		--push \
 		--platform linux/amd64,linux/arm64 \
-		-t $(REPO):$(TAG) \
+		-t $(BUILD_IMAGE_TAG) \
 		--build-arg INCLUDE_EXTRAS=$(INCLUDE_EXTRAS) \
 		--build-arg FROM=$(FROM) \
 		--build-arg VERSION=$(VERSION) \
@@ -39,13 +45,13 @@ push:
 	docker push $(REPO):$(TAG)
 
 shell: clean
-	docker run --rm --name $(NAME) -it $(PORTS) $(VOLUMES) $(ENV) $(REPO):$(TAG) /bin/bash
+	docker run --rm --name $(NAME) -it $(PORTS) $(VOLUMES) $(ENV) $(BUILD_IMAGE_TAG) /bin/bash
 
 run: clean
-	docker run --rm --name $(NAME) -it $(PORTS) $(VOLUMES) $(ENV) $(REPO):$(TAG)
+	docker run --rm --name $(NAME) -it $(PORTS) $(VOLUMES) $(ENV) $(BUILD_IMAGE_TAG)
 
 start: clean
-	docker run -d --name $(NAME) $(PORTS) $(VOLUMES) $(ENV) $(REPO):$(TAG)
+	docker run -d --name $(NAME) $(PORTS) $(VOLUMES) $(ENV) $(BUILD_IMAGE_TAG)
 
 exec:
 	docker exec $(NAME) /bin/bash -c "$(CMD)"
